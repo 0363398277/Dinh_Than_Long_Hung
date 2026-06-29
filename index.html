@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đình Thần Long Hưng</title>
+
+<style>
+body{
+    font-family:Arial;
+    margin:0;
+    background:linear-gradient(135deg,#f7f3e9,#e8e0c9);
+}
+
+/* HEADER TRANG NGHIÊM */
+.header{
+    text-align:center;
+    padding:20px 10px;
+    background:linear-gradient(90deg,#8b6b2f,#c9a86a,#8b6b2f);
+    color:white;
+    box-shadow:0 3px 15px rgba(0,0,0,0.2);
+}
+
+/* DÒNG 1 - ĐÌNH THẦN */
+.title-main{
+    font-size:34px;
+    font-weight:bold;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+/* DÒNG 2 */
+.title-sub{
+    font-size:16px;
+    margin-top:5px;
+    opacity:0.95;
+}
+/* LOGO GIẢ LẬP */
+.logo{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:white;
+    position:absolute;
+    left:20px;
+    top:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    color:#8b6b2f;
+}
+
+/* POPUP */
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.popup-box{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    width:320px;
+    text-align:center;
+}
+
+.btn{
+    display:block;
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn1{
+    background:#084f00;
+    color:white;
+}
+
+.btn2{
+    background:#ff0000;
+    color:white;
+}
+
+/* MAIN */
+.container{
+    max-width:700px;
+    margin:30px auto;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    display:none;
+}
+
+input{
+    padding:12px;
+    width:80%;
+    font-size:16px;
+    text-align:center;
+    margin-top:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+button{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    background:#8b6b2f;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.result{
+    margin-top:20px;
+    line-height:1.8;
+    white-space:pre-wrap;
+}
+
+.xam-number{
+    text-align:center;
+    color:#b8860b;
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:20px;
+    padding:10px;
+    border-bottom:2px solid #d8c08a;
+}
+@media (max-width:768px){
+
+    .title-main{
+        font-size:24px;
+        letter-spacing:1px;
+    }
+
+    .title-sub{
+        font-size:13px;
+    }
+
+    .logo{
+        width:32px;
+        height:32px;
+        left:10px;
+        top:10px;
+    }
+
+    .container{
+        margin:15px;
+        padding:15px;
+    }
+
+    .popup-box{
+        width:90%;
+        max-width:320px;
+    }
+
+    input{
+        width:100%;
+        box-sizing:border-box;
+    }
+
+    .xam-number{
+        font-size:24px;
+    }
+}
+
+/* ===== LOADING ===== */
+
+.loader{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:50px 20px;
+}
+
+.spinner{
+    width:60px;
+    height:60px;
+    border:6px solid #e5d7b2;
+    border-top:6px solid #8b6b2f;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+.loader-text{
+    margin-top:18px;
+    color:#8b6b2f;
+    font-size:18px;
+    font-weight:bold;
+}
+
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+/* ===== Ô nhập + nút ===== */
+
+.input-group{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-top:15px;
+}
+
+.input-group input{
+    flex:1;
+    margin-top:0;
+}
+
+.btn-view{
+    white-space:nowrap;
+    margin-top:0;
+    padding:12px 22px;
+    background:#8b6b2f;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.btn-view:hover{
+    background:#6d531e;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">☯</div>
+
+    <div class="title-main">
+        ĐÌNH THẦN
+    </div>
+
+    <div class="title-sub">
+        PHƯỜNG LONG HƯNG - THÀNH PHỐ ĐỒNG NAI
+    </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+
+<div class="popup-box">
+<h3>THỈNH LINH XĂM KHAI QUẺ</h3>
+
+<button class="btn btn1" onclick="selectType('QUAN_THANH')">
+QUAN THÁNH LINH XĂM
+</button>
+
+<button class="btn btn2" onclick="selectType('THANH_MAU')">
+THÁNH MẪU LINH XĂM
+</button>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="container" id="main">
+
+<h3>Nhập số xăm</h3>
+
+<div class="input-group">
+
+    <input id="number" placeholder="Nhập số quẻ xăm cần xem">
+
+    <button class="btn-view" onclick="getXam()">
+        Xem quẻ
+    </button>
+
+</div>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxf0WQMrPknhWZkR2ugDU0JoPHKEDsNvihrDwhbS8-dg8hXSKgBbpZFtagv6XZic94e/exec";
+
+
+let currentType = "";
+
+
+/* CHỌN LOẠI */
+function selectType(type){
+currentType = type;
+document.getElementById('popup').style.display = 'none';
+document.getElementById('main').style.display = 'block';
+}
+
+/* CHUẨN HÓA SỐ (20 → 020) */
+function normalizeNumber(num){
+num = num.trim();
+if(num === "") return "";
+return num.padStart(3,'0');
+}
+
+/* XEM XĂM */
+async function getXam(){
+
+    let raw = document.getElementById('number').value;
+    let num = normalizeNumber(raw);
+
+    if(num==""){
+        alert("Vui lòng nhập số quẻ");
+        return;
+    }
+
+    const result = document.getElementById("result");
+
+    // Xóa nội dung cũ
+    result.innerHTML="";
+
+    // Hiển thị loading
+result.innerHTML = `
+<div class="loader">
+    <div class="spinner"></div>
+    <div class="loader-text">Đang thỉnh linh xăm...</div>
+</div>`;
+
+    try{
+
+        const url =
+            API_URL +
+            "?type=" + encodeURIComponent(currentType) +
+            "&so=" + encodeURIComponent(num);
+
+        const response = await fetch(url);
+
+        const data = await response.json();
+
+        if(!data.success){
+
+            result.innerHTML =
+            "<h3 style='color:red'>" + data.message + "</h3>";
+
+            return;
+
+        }
+
+        result.innerHTML =
+        `
+        <div class="xam-number">${data.title}</div>
+        ${data.content}
+        `;
+
+    }catch(err){
+
+        result.innerHTML =
+        "<h3 style='color:red'>Không thể kết nối tới máy chủ.</h3>";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
